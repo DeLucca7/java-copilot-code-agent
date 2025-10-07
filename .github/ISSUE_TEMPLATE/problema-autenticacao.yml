@@ -1,0 +1,233 @@
+name: 🔐 Problema de Autenticação
+description: Reporte problemas relacionados ao login ou autenticação de professores
+title: "[Autenticação]: "
+labels: ["bug", "autenticação"]
+assignees:
+  - copilot
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🔐 Reportar Problema de Autenticação
+        
+        Use este formulário para reportar problemas com login, logout ou autenticação de professores no sistema.
+
+  - type: dropdown
+    id: auth-problem-type
+    attributes:
+      label: Tipo de Problema de Autenticação
+      description: Selecione o tipo específico do problema
+      options:
+        - Não consigo fazer login
+        - Login bem-sucedido mas não autenticado
+        - Sessão expira muito rápido
+        - Logout não funciona corretamente
+        - Senha não aceita/não reconhecida
+        - Problema com criação de novo professor
+        - Problema com permissões (TEACHER vs ADMIN)
+        - Outro problema de autenticação
+    validations:
+      required: true
+
+  - type: input
+    id: teacher-username
+    attributes:
+      label: Nome de Usuário do Professor
+      description: Username que está tendo problemas
+      placeholder: "Ex: teacher.rodriguez"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: teacher-role
+    attributes:
+      label: Role do Usuário
+      description: Qual o tipo de usuário?
+      options:
+        - TEACHER (Professor)
+        - ADMIN (Administrador)
+        - Não sei
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: Descrição do Problema
+      description: Descreva o problema em detalhes
+      placeholder: |
+        O que acontece quando você tenta fazer login?
+        Qual mensagem de erro aparece?
+        O problema começou recentemente ou sempre existiu?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Passos para Reproduzir
+      description: Como reproduzir o problema?
+      placeholder: |
+        1. Abra a página principal
+        2. Clique em 'Login'
+        3. Digite username 'teacher.rodriguez' e senha
+        4. Clique em 'Entrar'
+        5. Observe o erro
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-message
+    attributes:
+      label: Mensagem de Erro
+      description: Copie a mensagem de erro exata (se houver)
+      placeholder: "Ex: Invalid credentials"
+      render: text
+    validations:
+      required: false
+
+  - type: dropdown
+    id: when-problem-occurs
+    attributes:
+      label: Quando o Problema Ocorre?
+      description: Em qual momento o problema acontece?
+      options:
+        - Ao tentar fazer login pela primeira vez
+        - Ao tentar fazer login após logout
+        - Depois de algum tempo de inatividade
+        - Ao tentar realizar ações que requerem autenticação
+        - Sempre
+        - Às vezes
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Navegador
+      description: Qual navegador está usando?
+      placeholder: "Ex: Chrome 120, Firefox 115, Safari 17"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: password-known
+    attributes:
+      label: Você tem certeza da senha?
+      description: A senha está correta e confirmada?
+      options:
+        - Sim, tenho certeza absoluta
+        - Sim, mas preciso resetar
+        - Não, preciso de uma nova senha
+        - É senha padrão do sistema de seed
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Comportamento Esperado
+      description: O que deveria acontecer?
+      placeholder: "Ex: Deveria fazer login com sucesso e ver mensagem 'Bem-vindo(a), [nome]!'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Comportamento Atual
+      description: O que realmente acontece?
+      placeholder: "Ex: Retorna erro 'Invalid credentials' mesmo com senha correta"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affects-all-users
+    attributes:
+      label: Afeta Todos os Usuários?
+      description: O problema ocorre com outros professores também?
+      options:
+        - Sim, afeta todos os professores
+        - Sim, afeta múltiplos professores
+        - Não, apenas este usuário específico
+        - Não testei com outros usuários
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Solução Temporária (se houver)
+      description: Existe alguma forma de contornar o problema?
+      placeholder: "Ex: Funciona se usar navegador em modo anônimo"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante (logs, screenshots, etc.)
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## ✅ Critérios de Aceitação
+        
+        Esta issue será considerada resolvida quando:
+        - [ ] O problema de autenticação for identificado e corrigido
+        - [ ] O professor conseguir fazer login com sucesso
+        - [ ] A sessão persistir adequadamente
+        - [ ] As permissões (TEACHER/ADMIN) funcionarem corretamente
+        - [ ] Testes de autenticação forem adicionados ou atualizados
+        - [ ] O problema não puder mais ser reproduzido
+        - [ ] Casos similares forem verificados
+        
+        ## 🔧 Dicas de Implementação
+        
+        **Para o agente Copilot:**
+        
+        ### Arquivos Relevantes de Autenticação
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/domain/entities/Teacher.java` - Entidade do professor
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/application/usecases/StudentRegistrationUseCase.java` - Validação de autenticação
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/infrastructure/config/SecurityConfig.java` - Configuração de segurança
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/infrastructure/migrations/V001_InitialDatabaseSetup.java` - Seed de professores
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/presentation/controllers/ActivityController.java` - Endpoint de login
+        - `src/main/resources/static/app.js` - Lógica de login no frontend
+        
+        ### Checklist de Diagnóstico
+        - [ ] Verificar se o professor existe no banco de dados (migração executada corretamente)
+        - [ ] Confirmar que a senha está sendo criptografada com Argon2
+        - [ ] Verificar se o `PasswordEncoder` está configurado corretamente
+        - [ ] Confirmar que a validação no use case está correta
+        - [ ] Verificar se o localStorage está sendo usado corretamente no frontend
+        - [ ] Confirmar que o endpoint `/auth/login` está retornando os dados corretos
+        - [ ] Verificar se as variáveis de ambiente de senha estão configuradas
+        
+        ### Padrões de Senha
+        - Senhas padrão são configuradas via variáveis de ambiente
+        - Formato: `TEACHER_[USERNAME]_PASSWORD` (ex: `TEACHER_RODRIGUEZ_PASSWORD`)
+        - As senhas devem ser criptografadas com Argon2 antes de armazenar
+        - O `PasswordEncoder` do Spring Security deve ser usado para comparação
+        
+        ### Autenticação no Sistema
+        - O sistema usa autenticação básica via username/password em form data
+        - O frontend armazena o usuário autenticado no localStorage
+        - A validação de autenticação ocorre nos use cases, não na camada de segurança
+        - Retorne status 401 para falhas de autenticação
+        - Retorne os dados do professor (username, displayName, role) em caso de sucesso
+        
+        ### Testes
+        - Adicione ou atualize testes em `TeacherTest.java`
+        - Teste cenários de login bem-sucedido e falho
+        - Verifique que as roles (TEACHER/ADMIN) são corretamente atribuídas
+        - Teste a persistência da sessão

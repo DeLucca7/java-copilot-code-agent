@@ -1,0 +1,227 @@
+name: 📚 Melhoria de Documentação
+description: Solicite melhorias, correções ou adições à documentação do sistema
+title: "[Docs]: "
+labels: ["documentation"]
+assignees:
+  - copilot
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📚 Solicitar Melhoria de Documentação
+        
+        Use este formulário para solicitar melhorias, correções ou adições à documentação do sistema.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Tipo de Melhoria
+      description: Que tipo de melhoria na documentação você precisa?
+      options:
+        - Adicionar documentação faltante
+        - Corrigir informação incorreta
+        - Clarificar informação confusa
+        - Adicionar exemplos
+        - Atualizar documentação desatualizada
+        - Traduzir documentação
+        - Melhorar organização
+        - Outro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: doc-area
+    attributes:
+      label: Área da Documentação
+      description: Qual parte da documentação precisa de melhoria?
+      options:
+        - README principal
+        - Documentação técnica (docs/)
+        - Comentários no código
+        - Documentação da API
+        - Guia de instalação
+        - Guia de desenvolvimento
+        - Guia de testes
+        - Arquitetura do sistema
+        - Outro
+    validations:
+      required: true
+
+  - type: input
+    id: doc-file
+    attributes:
+      label: Arquivo ou Seção Específica
+      description: Qual arquivo ou seção precisa de melhoria?
+      placeholder: "Ex: docs/README.md - Seção 'Configuração e Execução'"
+    validations:
+      required: false
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: Problema Atual
+      description: O que está faltando, incorreto ou confuso na documentação atual?
+      placeholder: |
+        Descreva o problema:
+        - O que você esperava encontrar?
+        - O que realmente encontrou?
+        - Por que isso é problemático?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-improvement
+    attributes:
+      label: Melhoria Proposta
+      description: Como a documentação deveria ser melhorada?
+      placeholder: |
+        Descreva a melhoria:
+        - O que deveria ser adicionado/modificado?
+        - Como deveria ser explicado?
+        - Que exemplos seriam úteis?
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-impact
+    attributes:
+      label: Impacto para Usuários
+      description: Quem se beneficiaria desta melhoria e como?
+      placeholder: |
+        Ex: Professores novos teriam instruções claras de como adicionar atividades
+        Ex: Desenvolvedores entenderiam melhor a arquitetura do sistema
+      value: |
+        **Quem se beneficia:** 
+        **Como ajuda:** 
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-content
+    attributes:
+      label: Conteúdo Sugerido (opcional)
+      description: Se tiver sugestões específicas de texto ou formato, forneça aqui
+      placeholder: |
+        Ex: Adicionar seção:
+        ## Como Adicionar uma Nova Atividade
+        1. Edite o arquivo...
+        2. Adicione o código...
+        3. Execute o comando...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridade
+      description: Quão importante é esta melhoria?
+      options:
+        - Alta - Documentação essencial está faltando
+        - Média - Melhoria importante mas não crítica
+        - Baixa - Melhoria pequena ou estética
+    validations:
+      required: true
+
+  - type: textarea
+    id: related-issues
+    attributes:
+      label: Issues ou PRs Relacionados
+      description: Existem issues ou PRs relacionados a esta documentação?
+      placeholder: "Ex: #123, #456"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## ✅ Critérios de Aceitação
+        
+        Esta issue será considerada completa quando:
+        - [ ] A documentação solicitada for adicionada ou corrigida
+        - [ ] A informação estiver clara, precisa e completa
+        - [ ] Exemplos relevantes forem incluídos (se aplicável)
+        - [ ] A formatação markdown estiver correta
+        - [ ] Links internos e externos funcionarem corretamente
+        - [ ] A documentação estiver consistente com o código atual
+        - [ ] A melhoria for útil para o público-alvo (professores/desenvolvedores)
+        
+        ## 🔧 Dicas de Implementação
+        
+        **Para o agente Copilot:**
+        
+        ### Arquivos de Documentação
+        - **README principal:** `/README.md` - Overview do projeto
+        - **Documentação técnica:** `/docs/README.md` - Detalhes técnicos completos
+        - **Instruções Copilot:** `/.github/copilot-instructions.md` - Guidelines para IA
+        - **Issue templates:** `/.github/ISSUE_TEMPLATE/` - Templates de issues
+        
+        ### Estrutura da Documentação Principal (docs/README.md)
+        ```markdown
+        # Sistema de Gestão Escolar - Mergington High School
+        
+        ## 📋 Visão Geral
+        ## 🏗️ Arquitetura
+        ## 🚀 Tecnologias Utilizadas
+        ## 📦 Funcionalidades Principais
+        ## 🔧 Configuração e Execução
+        ## 🌐 API REST
+        ## 🧪 Testes
+        ## 📊 Dados Iniciais
+        ## 🔒 Segurança
+        ```
+        
+        ### Boas Práticas de Documentação
+        1. **Clareza:** Use linguagem simples e direta
+        2. **Exemplos:** Inclua exemplos de código quando relevante
+        3. **Formatação:** Use markdown apropriadamente (headers, listas, code blocks)
+        4. **Atualidade:** Certifique-se que a documentação reflete o código atual
+        5. **Completude:** Cubra casos comuns e edge cases
+        6. **Organização:** Estruture a informação logicamente
+        7. **Emojis:** Use emojis para melhorar legibilidade (já usados no projeto)
+        
+        ### Quando Atualizar Documentação
+        - Adicionar nova funcionalidade → Documente na seção apropriada
+        - Modificar API → Atualize exemplos de endpoints
+        - Mudar configuração → Atualize guia de instalação/configuração
+        - Adicionar dependência → Atualize seção de tecnologias
+        - Mudar arquitetura → Atualize diagramas e descrições
+        
+        ### Padrões de Documentação do Projeto
+        - Use português para documentação do usuário
+        - Use inglês para comentários de código (seguindo convenção Java)
+        - Inclua emojis nas seções (📦, 🔧, 🚀, etc.)
+        - Use code blocks com syntax highlighting: ```java, ```bash, ```http
+        - Mantenha consistência com o estilo existente
+        
+        ### Documentação de API REST
+        Siga este formato:
+        ```markdown
+        ### Endpoint Name
+        
+        ```http
+        METHOD /path
+        Content-Type: application/json
+        
+        {
+          "key": "value"
+        }
+        ```
+        
+        **Response:**
+        ```json
+        {
+          "result": "data"
+        }
+        ```
+        ```

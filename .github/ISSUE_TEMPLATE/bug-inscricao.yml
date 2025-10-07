@@ -1,0 +1,182 @@
+name: 🐛 Bug em Inscrição de Estudante
+description: Reporte um problema com inscrições ou cancelamentos de estudantes
+title: "[Bug - Inscrição]: "
+labels: ["bug", "inscrição"]
+assignees:
+  - copilot
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Reportar Bug em Inscrição de Estudante
+        
+        Use este formulário para reportar problemas relacionados ao processo de inscrição ou cancelamento de estudantes em atividades.
+
+  - type: dropdown
+    id: bug-type
+    attributes:
+      label: Tipo de Problema
+      description: Selecione o tipo de bug
+      options:
+        - Erro ao inscrever estudante
+        - Erro ao cancelar inscrição
+        - Validação incorreta (capacidade, duplicata, etc.)
+        - Problema de autenticação do professor
+        - Mensagem de erro confusa ou incorreta
+        - Outro problema de inscrição
+    validations:
+      required: true
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Nome da Atividade Afetada
+      description: Nome da atividade onde o problema ocorre (se específico)
+      placeholder: "Ex: Chess Club"
+    validations:
+      required: false
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Descrição do Bug
+      description: Descreva o problema em detalhes
+      placeholder: |
+        O que aconteceu?
+        O que você esperava que acontecesse?
+        O problema ocorre sempre ou apenas às vezes?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Passos para Reproduzir
+      description: Passo a passo para reproduzir o problema
+      placeholder: |
+        1. Faça login como professor 'teacher.chen'
+        2. Tente inscrever estudante 'aluno@mergington.edu' em 'Chess Club'
+        3. Observe o erro que aparece
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: input
+    id: teacher-username
+    attributes:
+      label: Usuário do Professor
+      description: Username do professor usado no teste (se aplicável)
+      placeholder: "Ex: teacher.rodriguez"
+    validations:
+      required: false
+
+  - type: input
+    id: student-email
+    attributes:
+      label: Email do Estudante
+      description: Email usado na tentativa de inscrição (se aplicável)
+      placeholder: "Ex: student@mergington.edu"
+    validations:
+      required: false
+
+  - type: textarea
+    id: error-message
+    attributes:
+      label: Mensagem de Erro
+      description: Copie e cole a mensagem de erro exata que apareceu
+      placeholder: "Ex: { detail: 'Activity is at maximum capacity' }"
+      render: json
+    validations:
+      required: false
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequência do Bug
+      description: Com que frequência o problema ocorre?
+      options:
+        - Sempre (100% das vezes)
+        - Frequentemente (mais de 50% das vezes)
+        - Às vezes (menos de 50% das vezes)
+        - Raramente
+        - Ocorreu apenas uma vez
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Comportamento Esperado
+      description: O que deveria acontecer ao invés do erro?
+      placeholder: "Ex: O estudante deveria ser inscrito com sucesso e aparecer na lista de participantes"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Comportamento Atual
+      description: O que realmente está acontecendo?
+      placeholder: "Ex: O sistema retorna erro 400 mesmo com capacidade disponível"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impacto
+      description: Qual o impacto deste bug?
+      options:
+        - Crítico - Sistema não funciona
+        - Alto - Funcionalidade principal afetada
+        - Médio - Funcionalidade secundária afetada
+        - Baixo - Problema menor ou cosmético
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante (screenshots, logs, etc.)
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## ✅ Critérios de Aceitação
+        
+        Esta issue será considerada resolvida quando:
+        - [ ] O bug for identificado e corrigido no código
+        - [ ] O comportamento esperado for restaurado
+        - [ ] Testes unitários forem adicionados para prevenir regressão
+        - [ ] O bug não puder mais ser reproduzido usando os passos fornecidos
+        - [ ] Casos similares forem verificados para garantir que não existem bugs relacionados
+        - [ ] Todos os testes existentes continuarem passando
+        
+        ## 🔧 Dicas de Implementação
+        
+        **Para o agente Copilot:**
+        - Verifique as validações em `StudentRegistrationUseCase.java`
+        - Revise a lógica de capacidade máxima no método `canAddParticipant()` da entidade `Activity`
+        - Verifique a validação de email duplicado em `isParticipantRegistered()`
+        - Confirme que a autenticação do professor está sendo validada corretamente
+        - Verifique os códigos de status HTTP no `ActivityController`
+        - Para erros de validação, retorne status 400 com mensagem clara
+        - Para problemas de autenticação, retorne status 401
+        - Para atividades não encontradas, retorne status 404
+        - Adicione testes unitários em `StudentRegistrationUseCaseTest` para cobrir o cenário do bug
+        
+        ## 📋 Arquivos Relevantes
+        
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/application/usecases/StudentRegistrationUseCase.java` - Lógica de inscrição
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/domain/entities/Activity.java` - Validações de capacidade
+        - `src/main/java/com/mergingtonhigh/schoolmanagement/presentation/controllers/ActivityController.java` - Endpoints REST
+        - `src/test/java/com/mergingtonhigh/schoolmanagement/application/usecases/StudentRegistrationUseCaseTest.java` - Testes

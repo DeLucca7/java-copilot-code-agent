@@ -1,0 +1,236 @@
+name: ✨ Nova Funcionalidade
+description: Solicite uma nova funcionalidade para o sistema
+title: "[Funcionalidade]: "
+labels: ["enhancement", "nova-funcionalidade"]
+assignees:
+  - copilot
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ✨ Solicitar Nova Funcionalidade
+        
+        Use este formulário para propor uma nova funcionalidade para o sistema de gerenciamento escolar.
+
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Categoria da Funcionalidade
+      description: Em qual área do sistema esta funcionalidade se encaixa?
+      options:
+        - Gestão de Atividades
+        - Inscrições de Estudantes
+        - Autenticação e Segurança
+        - Relatórios e Estatísticas
+        - Interface do Usuário
+        - API e Integrações
+        - Notificações
+        - Busca e Filtros
+        - Outra
+    validations:
+      required: true
+
+  - type: input
+    id: feature-title
+    attributes:
+      label: Título da Funcionalidade
+      description: Um título curto e descritivo
+      placeholder: "Ex: Exportar lista de participantes em CSV"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problema ou Necessidade
+      description: Qual problema esta funcionalidade resolve ou necessidade atende?
+      placeholder: |
+        Descreva o problema ou necessidade:
+        - Quem é afetado?
+        - Qual é o impacto atual?
+        - Por que isso é importante?
+      value: |
+        **Quem precisa:** 
+        **Problema atual:** 
+        **Por que é importante:** 
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Solução Proposta
+      description: Descreva como a funcionalidade deveria funcionar
+      placeholder: |
+        Como deveria funcionar:
+        - O que o usuário faz?
+        - O que o sistema faz?
+        - Qual é o resultado esperado?
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: História de Usuário
+      description: Descreva a funcionalidade como uma história de usuário
+      placeholder: |
+        Como [tipo de usuário]
+        Eu quero [fazer algo]
+        Para que [objetivo/benefício]
+      value: |
+        Como **[professor/administrador/estudante]**
+        Eu quero **[ação desejada]**
+        Para que **[benefício/objetivo]**
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Critérios de Aceitação Específicos
+      description: Liste os critérios que definem quando esta funcionalidade está completa
+      placeholder: |
+        - [ ] Critério 1
+        - [ ] Critério 2
+        - [ ] Critério 3
+      value: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+
+  - type: dropdown
+    id: api-changes
+    attributes:
+      label: Requer Mudanças na API?
+      description: Esta funcionalidade precisa de novos endpoints ou modificações na API?
+      options:
+        - Sim - Novos endpoints
+        - Sim - Modificar endpoints existentes
+        - Não - Apenas frontend
+        - Não - Apenas backend interno
+        - Não tenho certeza
+    validations:
+      required: true
+
+  - type: dropdown
+    id: database-changes
+    attributes:
+      label: Requer Mudanças no Banco de Dados?
+      description: Esta funcionalidade precisa de novos campos, coleções ou migrações?
+      options:
+        - Sim - Novos campos em entidades existentes
+        - Sim - Nova entidade/coleção
+        - Sim - Modificar estrutura existente
+        - Não - Usa estrutura atual
+        - Não tenho certeza
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-suggestions
+    attributes:
+      label: Sugestões Técnicas
+      description: Se tiver sugestões sobre a implementação técnica, descreva aqui
+      placeholder: |
+        Ex: Poderia usar o mesmo padrão do endpoint /activities
+        Ex: Adicionar campo 'notes' na entidade Activity
+        Ex: Criar novo use case chamado ExportActivityParticipants
+    validations:
+      required: false
+
+  - type: textarea
+    id: ui-mockup
+    attributes:
+      label: Mockup ou Exemplo de Interface (se aplicável)
+      description: Descreva como a interface deveria parecer ou funcionar
+      placeholder: |
+        Descreva a interface ou comportamento visual:
+        - Onde aparece no sistema?
+        - Quais elementos visuais?
+        - Como o usuário interage?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridade
+      description: Qual a importância desta funcionalidade?
+      options:
+        - Crítica - Bloqueia trabalho importante
+        - Alta - Muito importante, mas não bloqueia
+        - Média - Importante, mas pode esperar
+        - Baixa - Seria bom ter, mas não urgente
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas Consideradas
+      description: Existem outras formas de resolver este problema?
+      placeholder: "Ex: Atualmente fazemos isso manualmente usando... mas é trabalhoso porque..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante (exemplos, referências, etc.)
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## ✅ Critérios de Aceitação Gerais
+        
+        Esta funcionalidade será considerada completa quando:
+        - [ ] Todos os critérios de aceitação específicos forem atendidos
+        - [ ] A funcionalidade for implementada seguindo a Clean Architecture do projeto
+        - [ ] Testes unitários forem criados para a nova funcionalidade
+        - [ ] A documentação for atualizada (README.md, se necessário)
+        - [ ] Todos os testes existentes continuarem passando
+        - [ ] A funcionalidade for testada manualmente e funcionar conforme esperado
+        - [ ] O código seguir os padrões e convenções do projeto
+        
+        ## 🔧 Dicas de Implementação
+        
+        **Para o agente Copilot:**
+        
+        ### Estrutura de Camadas
+        - **Domain Layer** (`domain/`): Adicione entidades, value objects ou interfaces de repositório
+        - **Application Layer** (`application/`): Crie use cases e DTOs
+        - **Infrastructure Layer** (`infrastructure/`): Implemente repositórios ou configurações
+        - **Presentation Layer** (`presentation/`): Adicione controllers e mappers
+        
+        ### Padrões a Seguir
+        - Use casos devem coordenar a lógica de negócio
+        - Validações devem estar nas entidades do domínio
+        - Controllers devem ser finos, delegando para use cases
+        - Use DTOs para comunicação externa, não exponha entidades diretamente
+        - Retorne códigos HTTP apropriados: 200 (OK), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found)
+        
+        ### Testes
+        - Crie testes unitários em `src/test/java/` seguindo a mesma estrutura de pacotes
+        - Use `@ExtendWith(MockitoExtension.class)` para testes com mocks
+        - Nomeie testes como `shouldDoSomethingWhenCondition()`
+        - Mock dependências usando `@Mock` e `@InjectMocks`
+        
+        ### Banco de Dados
+        - Se adicionar campos, atualize as entidades com anotações Spring Data MongoDB
+        - Se criar nova entidade, adicione `@Document(collection = "nome")`
+        - Para dados iniciais, adicione em `V001_InitialDatabaseSetup.java`
+        
+        ### API REST
+        - Adicione endpoints em controllers existentes ou crie novos
+        - Use anotações: `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`
+        - Valide dados com `@Valid` e retorne erros apropriados
+        - Configure CORS se necessário usando `@CrossOrigin`
