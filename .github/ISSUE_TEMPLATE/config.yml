@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentação do Sistema
+    url: https://github.com/DeLucca7/java-copilot-code-agent/blob/main/docs/README.md
+    about: Consulte a documentação completa do sistema antes de criar uma issue
+  - name: 💬 Discussões
+    url: https://github.com/DeLucca7/java-copilot-code-agent/discussions
+    about: Para dúvidas gerais ou discussões sobre o sistema

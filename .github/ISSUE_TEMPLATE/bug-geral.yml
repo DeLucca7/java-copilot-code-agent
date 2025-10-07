@@ -1,0 +1,241 @@
+name: 🐛 Bug Geral
+description: Reporte outros bugs não relacionados a inscrição ou autenticação
+title: "[Bug]: "
+labels: ["bug"]
+assignees:
+  - copilot
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Reportar Bug Geral
+        
+        Use este formulário para reportar bugs que não se encaixam nas categorias específicas de inscrição ou autenticação.
+        
+        **Nota:** Se o bug for relacionado a:
+        - Inscrição de estudantes → Use o template "Bug em Inscrição de Estudante"
+        - Autenticação de professores → Use o template "Problema de Autenticação"
+
+  - type: dropdown
+    id: bug-area
+    attributes:
+      label: Área do Sistema
+      description: Qual parte do sistema está afetada?
+      options:
+        - Listagem de atividades
+        - Filtros de atividades
+        - Detalhes de atividade
+        - Interface do usuário (UI)
+        - API REST
+        - Banco de dados
+        - Performance
+        - Documentação
+        - Outro
+    validations:
+      required: true
+
+  - type: input
+    id: bug-summary
+    attributes:
+      label: Resumo do Bug
+      description: Uma linha descrevendo o problema
+      placeholder: "Ex: Filtro por dia da semana não funciona corretamente"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Descrição Detalhada
+      description: Descreva o bug em detalhes
+      placeholder: |
+        - O que você estava tentando fazer?
+        - O que aconteceu?
+        - Por que isso é um problema?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Passos para Reproduzir
+      description: Como reproduzir o problema?
+      placeholder: |
+        1. Vá para a página inicial
+        2. Selecione filtro 'Monday'
+        3. Observe que atividades de outros dias aparecem
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Comportamento Esperado
+      description: O que deveria acontecer?
+      placeholder: "Ex: Deveria mostrar apenas atividades da segunda-feira"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Comportamento Atual
+      description: O que realmente acontece?
+      placeholder: "Ex: Mostra atividades de todos os dias da semana"
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-message
+    attributes:
+      label: Mensagem de Erro ou Logs
+      description: Cole mensagens de erro, stack traces ou logs relevantes
+      render: text
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severidade
+      description: Qual o impacto deste bug?
+      options:
+        - Crítico - Sistema não funciona ou perde dados
+        - Alto - Funcionalidade principal quebrada
+        - Médio - Funcionalidade funciona parcialmente
+        - Baixo - Problema cosmético ou menor
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequência
+      description: Com que frequência o bug ocorre?
+      options:
+        - Sempre (100%)
+        - Frequentemente (>50%)
+        - Às vezes (<50%)
+        - Raramente
+        - Ocorreu uma vez
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Ambiente
+      description: Onde o bug foi encontrado?
+      placeholder: "Ex: Navegador Chrome 120 no Windows 11"
+    validations:
+      required: false
+
+  - type: textarea
+    id: data-context
+    attributes:
+      label: Contexto de Dados
+      description: Dados específicos relacionados ao bug (nome da atividade, email, etc.)
+      placeholder: |
+        Ex: 
+        - Atividade: "Chess Club"
+        - Filtro usado: "Monday"
+        - Horário: "15:30"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots ou Evidências
+      description: Descreva ou cole links para screenshots que mostram o problema
+    validations:
+      required: false
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Solução Temporária
+      description: Existe alguma forma de contornar o problema?
+      placeholder: "Ex: Funciona se eu recarregar a página"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## ✅ Critérios de Aceitação
+        
+        Esta issue será considerada resolvida quando:
+        - [ ] A causa raiz do bug for identificada
+        - [ ] O bug for corrigido no código
+        - [ ] O comportamento esperado for restaurado
+        - [ ] Testes forem adicionados para prevenir regressão
+        - [ ] O bug não puder mais ser reproduzido seguindo os passos fornecidos
+        - [ ] Todos os testes existentes continuarem passando
+        - [ ] A correção não introduzir novos bugs
+        
+        ## 🔧 Dicas de Implementação
+        
+        **Para o agente Copilot:**
+        
+        ### Estrutura do Projeto
+        ```
+        src/main/java/com/mergingtonhigh/schoolmanagement/
+        ├── domain/           # Entidades e lógica de negócio
+        ├── application/      # Use cases e DTOs
+        ├── infrastructure/   # Repositórios e configurações
+        └── presentation/     # Controllers e mappers
+        ```
+        
+        ### Abordagem de Depuração
+        1. **Identifique a camada afetada:**
+           - Frontend (`src/main/resources/static/`) - JavaScript, HTML, CSS
+           - Controller (`presentation/controllers/`) - Endpoints REST
+           - Use Case (`application/usecases/`) - Lógica de aplicação
+           - Domain (`domain/entities/`) - Regras de negócio
+           - Repository (`infrastructure/persistence/`) - Acesso a dados
+        
+        2. **Verifique validações:**
+           - Entidades validam dados nos construtores e setters
+           - Use cases coordenam validações de negócio
+           - Controllers validam dados de entrada
+        
+        3. **Analise filtros e queries:**
+           - Filtros estão em `ActivityUseCase.java`
+           - Queries MongoDB em repositórios
+           - Mapeamento de dias/horários em `ScheduleDetails`
+        
+        4. **Teste a correção:**
+           - Adicione testes unitários na camada apropriada
+           - Use `@ExtendWith(MockitoExtension.class)` para mocks
+           - Nomeie testes: `shouldDoSomethingWhenCondition()`
+        
+        ### Arquivos Comuns
+        - **Filtros de atividade:** `ActivityUseCase.java`, `ActivityRepositoryImpl.java`
+        - **UI/Frontend:** `app.js`, `index.html`, `styles.css`
+        - **Validações:** Entidades em `domain/entities/`
+        - **API endpoints:** Controllers em `presentation/controllers/`
+        - **Dados de teste:** `V001_InitialDatabaseSetup.java`
+        
+        ### Padrões de Resposta HTTP
+        - `200 OK` - Sucesso
+        - `201 Created` - Recurso criado
+        - `400 Bad Request` - Validação falhou
+        - `401 Unauthorized` - Autenticação necessária
+        - `404 Not Found` - Recurso não encontrado
+        - `500 Internal Server Error` - Erro do servidor

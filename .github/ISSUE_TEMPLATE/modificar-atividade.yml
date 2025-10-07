@@ -1,0 +1,152 @@
+name: ✏️ Modificar Atividade Existente
+description: Solicite alterações em uma atividade extracurricular já cadastrada
+title: "[Modificar Atividade]: "
+labels: ["enhancement", "atividade"]
+assignees:
+  - copilot
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ✏️ Modificar Atividade Existente
+        
+        Use este formulário para solicitar alterações em uma atividade que já está cadastrada no sistema.
+        Preencha os campos que deseja modificar e deixe em branco os que devem permanecer inalterados.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Nome da Atividade a Modificar
+      description: Nome exato da atividade que deseja alterar (como aparece no sistema)
+      placeholder: "Ex: Chess Club"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: modification-type
+    attributes:
+      label: Tipo de Modificação
+      description: Selecione o que deseja modificar
+      multiple: true
+      options:
+        - Descrição
+        - Horário (dias e/ou horas)
+        - Capacidade máxima
+        - Tipo/Categoria
+        - Múltiplos campos
+    validations:
+      required: true
+
+  - type: textarea
+    id: new-description
+    attributes:
+      label: Nova Descrição (se aplicável)
+      description: Se está modificando a descrição, forneça o novo texto completo
+      placeholder: "Ex: Nova descrição detalhada da atividade..."
+    validations:
+      required: false
+
+  - type: input
+    id: new-schedule-days
+    attributes:
+      label: Novos Dias da Semana (se aplicável)
+      description: Novos dias em que a atividade ocorre (separados por vírgula, em inglês)
+      placeholder: "Ex: Monday, Wednesday, Friday"
+    validations:
+      required: false
+
+  - type: input
+    id: new-schedule-start
+    attributes:
+      label: Novo Horário de Início (se aplicável)
+      description: Novo horário de início no formato HH:MM (24 horas)
+      placeholder: "Ex: 16:00"
+    validations:
+      required: false
+
+  - type: input
+    id: new-schedule-end
+    attributes:
+      label: Novo Horário de Término (se aplicável)
+      description: Novo horário de término no formato HH:MM (24 horas)
+      placeholder: "Ex: 18:00"
+    validations:
+      required: false
+
+  - type: input
+    id: new-max-participants
+    attributes:
+      label: Nova Capacidade Máxima (se aplicável)
+      description: Novo número máximo de participantes
+      placeholder: "Ex: 25"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: new-activity-type
+    attributes:
+      label: Novo Tipo de Atividade (se aplicável)
+      description: Selecione a nova categoria
+      options:
+        - "Não alterar"
+        - Esportes (SPORTS)
+        - Artes (ARTS)
+        - Acadêmico (ACADEMIC)
+        - Comunidade (COMMUNITY)
+        - Tecnologia (TECHNOLOGY)
+    validations:
+      required: false
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Motivo da Alteração
+      description: Explique por que esta mudança é necessária
+      placeholder: "Ex: A atividade teve aumento de demanda e precisamos expandir a capacidade"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Informações Adicionais
+      description: Qualquer outra informação relevante
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## ✅ Critérios de Aceitação
+        
+        Esta issue será considerada completa quando:
+        - [ ] A atividade especificada for localizada no arquivo de migração
+        - [ ] As modificações solicitadas forem aplicadas corretamente
+        - [ ] A atividade modificada aparecer com os novos dados no sistema
+        - [ ] Nenhuma outra atividade for afetada pela mudança
+        - [ ] Os testes existentes continuarem passando
+        - [ ] Se houver participantes já inscritos, eles forem preservados (a menos que a capacidade seja reduzida abaixo do número atual)
+        
+        ## 🔧 Dicas de Implementação
+        
+        **Para o agente Copilot:**
+        - Localize a atividade no método `seedActivities()` do arquivo `src/main/java/com/mergingtonhigh/schoolmanagement/infrastructure/migrations/V001_InitialDatabaseSetup.java`
+        - Identifique a atividade pelo nome exato fornecido no campo "Nome da Atividade a Modificar"
+        - Modifique apenas os campos especificados, mantendo os demais inalterados
+        - Para horários, use `LocalTime.parse("HH:MM")`
+        - Para dias, use lista em inglês: `List.of("Monday", "Wednesday")`
+        - Para tipo, use o enum correto: `ActivityType.SPORTS`, `ActivityType.ARTS`, etc.
+        - Se a descrição for modificada, atualize o segundo parâmetro do construtor
+        - Se o horário for modificado, atualize o objeto `ScheduleDetails`
+        - Mantenha a formatação e estrutura do código existente
+        
+        ## 📋 Contexto Adicional
+        
+        - As atividades são criadas na migração inicial do banco de dados
+        - O nome da atividade é usado como identificador único (ID)
+        - Modificar o nome requer criar uma nova atividade e migrar os dados
+        - Se houver estudantes já inscritos, considere o impacto das mudanças de horário
+        - Reduções de capacidade devem ser cuidadosas para não excluir inscrições existentes

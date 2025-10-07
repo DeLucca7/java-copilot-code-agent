@@ -1,0 +1,123 @@
+name: 📝 Adicionar Nova Atividade
+description: Solicite a criação de uma nova atividade extracurricular no sistema
+title: "[Nova Atividade]: "
+labels: ["enhancement", "atividade"]
+assignees:
+  - copilot
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 Adicionar Nova Atividade
+        
+        Use este formulário para solicitar a adição de uma nova atividade extracurricular ao sistema.
+        Preencha todos os campos obrigatórios para que o agente de codificação Copilot possa implementar a mudança automaticamente.
+
+  - type: input
+    id: activity-name
+    attributes:
+      label: Nome da Atividade
+      description: Nome completo da atividade (será usado como identificador único)
+      placeholder: "Ex: Clube de Robótica"
+    validations:
+      required: true
+
+  - type: textarea
+    id: activity-description
+    attributes:
+      label: Descrição da Atividade
+      description: Descrição detalhada da atividade (mínimo 50 caracteres)
+      placeholder: "Ex: Aprenda a construir e programar robôs usando Arduino e sensores. Desenvolva habilidades em engenharia, programação e trabalho em equipe através de projetos práticos e competições."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: activity-type
+    attributes:
+      label: Tipo de Atividade
+      description: Selecione a categoria que melhor descreve a atividade
+      options:
+        - Esportes
+        - Artes
+        - Acadêmico
+        - Comunidade
+        - Tecnologia
+    validations:
+      required: true
+
+  - type: input
+    id: schedule-days
+    attributes:
+      label: Dias da Semana
+      description: Dias em que a atividade ocorre (separados por vírgula)
+      placeholder: "Ex: Monday, Wednesday ou Segunda, Quarta"
+    validations:
+      required: true
+
+  - type: input
+    id: schedule-start
+    attributes:
+      label: Horário de Início
+      description: Horário de início no formato HH:MM (24 horas)
+      placeholder: "Ex: 15:30"
+    validations:
+      required: true
+
+  - type: input
+    id: schedule-end
+    attributes:
+      label: Horário de Término
+      description: Horário de término no formato HH:MM (24 horas)
+      placeholder: "Ex: 17:00"
+    validations:
+      required: true
+
+  - type: input
+    id: max-participants
+    attributes:
+      label: Capacidade Máxima
+      description: Número máximo de participantes permitidos
+      placeholder: "Ex: 30"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Informações Adicionais
+      description: Qualquer outra informação relevante (requisitos especiais, materiais necessários, etc.)
+      placeholder: "Ex: Requer equipamento de proteção, materiais serão fornecidos pela escola"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## ✅ Critérios de Aceitação
+        
+        Esta issue será considerada completa quando:
+        - [ ] A nova atividade for adicionada à migração do banco de dados (`V001_InitialDatabaseSetup.java`)
+        - [ ] A atividade aparecer na listagem do sistema
+        - [ ] Todos os campos (nome, descrição, horários, capacidade) estiverem corretos
+        - [ ] O tipo da atividade for configurado corretamente
+        - [ ] Os testes existentes continuarem passando
+        
+        ## 🔧 Dicas de Implementação
+        
+        **Para o agente Copilot:**
+        - Adicione a nova atividade no método `seedActivities()` do arquivo `src/main/java/com/mergingtonhigh/schoolmanagement/infrastructure/migrations/V001_InitialDatabaseSetup.java`
+        - Use o construtor: `new Activity(nome, descrição, horário_legível, new ScheduleDetails(dias, horário_início, horário_término), capacidade_máxima, tipo)`
+        - O tipo deve ser um valor do enum `ActivityType` (SPORTS, ARTS, ACADEMIC, COMMUNITY, TECHNOLOGY)
+        - Use `LocalTime.parse()` para os horários de início e fim
+        - Os dias devem estar em inglês e em uma lista: `List.of("Monday", "Wednesday")`
+        - Certifique-se de chamar `mongoTemplate.save(atividade)` após criar o objeto
+        
+        ## 📋 Contexto Adicional
+        
+        - O sistema usa Clean Architecture com camadas separadas
+        - As atividades são armazenadas no MongoDB através do Spring Data
+        - A migração Mongock garante que os dados sejam inseridos na inicialização
+        - O nome da atividade serve como ID único no banco de dados
